@@ -72,7 +72,7 @@ AS
    dayofyear(cdate) as day_of_year,
    month(cdate) as month_of_year,
    year(cdate)-1900 as year_of_calendar
-FROM LIMU_PL_DEV.sys_calendar.CALDATES
+FROM sys_calendar.CALDATES
 --WHERE cdate = to_date('1900-01-01')
 ;
 ```
