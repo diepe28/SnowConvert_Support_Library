@@ -40,7 +40,7 @@ CREATE SCHEMA SYS_CALENDAR;
 ```
 
 ```sql
-create or replace TABLE CALDATES (
+create or replace TABLE SYS_CALENDAR.CALDATES (
 	CDATE DATE NOT NULL,
 	constraint UNIQ_CDATE unique (CDATE)
 );
@@ -49,7 +49,7 @@ create or replace TABLE CALDATES (
 and to fill CALDATES:
 
 ```sql
-CREATE OR REPLACE TABLE sys_calendar.CALDATES (cdate DATE)
+CREATE OR REPLACE TABLE SYS_CALENDAR.CALDATES (cdate DATE)
 
 AS
 
@@ -57,7 +57,7 @@ SELECT DATEADD(day, seq4(), '1900-01-01') cdate FROM TABLE(GENERATOR(RowCount =>
 ```
 
 ```sql
-CREATE OR REPLACE VIEW CALBASICS (
+CREATE OR REPLACE VIEW SYS_CALENDAR.CALBASICS (
 calendar_date,
 day_of_calendar,
 day_of_month,
@@ -72,35 +72,16 @@ AS
    dayofyear(cdate) as day_of_year,
    month(cdate) as month_of_year,
    year(cdate)-1900 as year_of_calendar
-FROM sys_calendar.CALDATES
---WHERE cdate = to_date('1900-01-01')
-;
-```
-
-```sql
-CREATE OR REPLACE VIEW CALBASICS (
-calendar_date,
-day_of_calendar,
-day_of_month,
-day_of_year,
-month_of_year,
-year_of_calendar)
-AS
-   SELECT
-   cdate as calendar_date,
-   datediff('d','1900-01-01',cdate)+1 as day_of_calendar,
-   dayofmonth(cdate) as day_of_month,
-   dayofyear(cdate) as day_of_year,
-   month(cdate) as month_of_year,
-   year(cdate)-1900 as year_of_calendar
-FROM sys_calendar.CALDATES
+FROM SYS_CALENDAR.CALDATES
 --WHERE cdate = to_date('1900-01-01')
 ;
 ```
 
 
+
+
 ```sql
-CREATE OR REPLACE VIEW CALENDARTMP(
+CREATE OR REPLACE VIEW SYS_CALENDAR.CALENDARTMP(
   calendar_date,
   day_of_week,
   day_of_month,
@@ -133,11 +114,11 @@ AS
    quarter(calendar_date) as quarter_of_year,
    TRUNC((month_of_year + 2) / 3) + 4 * year_of_calendar as quarter_of_calendar,
    year_of_calendar + 1900 as year_of_calendar
- FROM sys_calendar.CALBASICS;
+ FROM SYS_CALENDAR.CALBASICS;
 ```
 
 ```sql
-CREATE OR REPLACE VIEW CALENDAR (
+CREATE OR REPLACE VIEW SYS_CALENDAR.CALENDAR (
 calendar_date,
 day_of_calendar,
 day_of_week,
@@ -171,5 +152,5 @@ month_of_calendar,
 quarter_of_year,
 quarter_of_calendar,
 year_of_calendar
- FROM Sys_Calendar.CALENDARTMP;
+ FROM SYS_CALENDAR.CALENDARTMP;
 ```
