@@ -34,3 +34,9 @@ TO_DATE(CAST(INPUT_1+19000000 AS CHAR(8)), ''YYYYMMDD'')
 ';
 ```
 
+
+A common used literal is:
+
+`80991231 => '9999-12-31'`
+  
+just replace that by its date value `9999-12-31`
