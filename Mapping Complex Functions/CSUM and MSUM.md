@@ -20,7 +20,7 @@ group by cmonth
 **Translated to Snowflake**
 
 ```sql
-select cmonth, SUM(csales) OVER (PARTITION cmonth ORDER BY cdate ROWS UNBOUNDED PRECEDING)
+select cmonth, SUM(csales) OVER (PARTITION by cmonth ORDER BY cdate ROWS UNBOUNDED PRECEDING)
 from sales
 ```
 ### MSUM Example
@@ -34,7 +34,7 @@ group by cmonth
 
 **Translated to Snowflake**
 ```
-select cmonth, MSUM(csales) OVER (PARTITION cdate ORDER BY cdate ROWS 2 PRECEDING)
+select cmonth, MSUM(csales) OVER (PARTITION by cmonth ORDER BY cdate ROWS 2 PRECEDING)
 from sales
 ```
 
