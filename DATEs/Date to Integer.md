@@ -40,3 +40,26 @@ A common used literal is:
 `80991231 => '9999-12-31'`
   
 just replace that by its date value `9999-12-31`
+
+
+
+-- Weird date conversion behaviour
+SELECT CAST(201001 as DATE format 'YYYYMM')
+-- This returns 1920-10-01
+
+-- Why
+-- Teradata converts INT to date using the formula value + 19000000
+-- that return 1920-10-01
+SELECT CAST(CAST(201001 as DATE format 'YYYYMM') AS VARCHAR(8))
+-- That retuns 192010
+
+-- Than means that the equivalent in snowflake for int numbers is:
+-- for SELECT CAST(201001 as DATE format 'YYYYMM')
+is 
+
+select TO_DATE((201001 + 19000000)::VARCHAR,'YYYYMMDD')
+-- because the output is a date
+-- but if you are then casting to varchar
+-- like in SELECT CAST(CAST(201001 as DATE format 'YYYYMM') AS VARCHAR(8))
+-- Teradata carries the last format for the date value, then the equivalent is:
+SELECT CAST(CAST(201001 as DATE format 'YYYYMM') AS VARCHAR(8))
