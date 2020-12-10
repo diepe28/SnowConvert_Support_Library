@@ -1,7 +1,14 @@
 /******************************************************/
 /****************** PERIOD UDFS ***********************/
 /******************************************************/
-----------
+
+CREATE OR REPLACE FUNCTION PUBLIC.PERIOD(PERIOD_START TIMESTAMP, PERIOD_END TIMESTAMP)
+RETURNS VARCHAR
+AS
+$$
+ PERIOD_START || '*' || PERIOD_END
+$$;
+
 CREATE OR REPLACE FUNCTION PUBLIC.PERIOD_END_UDF(PERIOD_VAL VARCHAR(22))
 RETURNS TIMESTAMP
 AS
