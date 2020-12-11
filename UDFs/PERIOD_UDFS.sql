@@ -67,3 +67,33 @@ ELSE
     FALSE
 END 
 $$;
+                                                                
+
+CREATE OR REPLACE FUNCTION PUBLIC.PERIOD_CONTAINS_UDF(PERIOD_1 VARCHAR(22), DATE1 TIMESTAMP)
+RETURNS BOOLEAN 
+AS
+$$
+ CASE WHEN 
+    (DATE1 >= PERIOD_BEGIN_UDF(PERIOD_1) AND DATE1 <= PERIOD_END_UDF(PERIOD_1))
+THEN
+    TRUE
+ELSE
+    FALSE
+END 
+$$;                                                                
+
+CREATE OR REPLACE FUNCTION PUBLIC.PERIOD_CONTAINS_UDF(PERIOD_1 VARCHAR(22), DATE1 DATE)
+RETURNS BOOLEAN 
+AS
+$$
+ CASE WHEN 
+    (DATE1 >= CAST(PERIOD_BEGIN_UDF(PERIOD_1) AS DATE) AND DATE1 <= CAST(PERIOD_END_UDF(PERIOD_1) AS DATE))
+THEN
+    TRUE
+ELSE
+    FALSE
+END 
+$$;
+                                                                
+                                                                
+                                                                
