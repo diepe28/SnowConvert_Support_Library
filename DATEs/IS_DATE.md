@@ -2,7 +2,7 @@
 
 
 
-
+```sql
 CREATE OR REPLACE FUNCTION PUBLIC.ISDATE_UDF(DATE_VALUE VARCHAR)
 RETURNS BOOLEAN 
 AS
@@ -17,8 +17,9 @@ $$
    */                                                                
    iff(TRY_TO_DATE(DATE_VALUE) is null,FALSE, TRUE), 
 $$;
+```
 
-
+```sql
 CREATE OR REPLACE FUNCTION PUBLIC.ISDATE_UDF(DATE_VALUE VARCHAR,SEPARATOR CHAR)
 RETURNS BOOLEAN 
 AS
@@ -34,11 +35,11 @@ $$
    */                                                                
    iff(TRY_TO_DATE(DATE_VALUE,'YYYY' || SEPARATOR || 'MM' || SEPARATOR || 'DD' ) is null,FALSE, TRUE), 
 $$;
-
+```
 
 Teradata ISDate functions supports several formats if you want an exact replica of its behaviour then you need something like:
 
-
+```sql
 CREATE OR REPLACE FUNCTION PUBLIC.ISDATE2_UDF(DATE_VALUE VARCHAR)
 RETURNS BOOLEAN 
 AS
@@ -110,3 +111,4 @@ $$
         , TRUE)
     , TRUE) 
 $$;
+```
