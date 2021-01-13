@@ -9,6 +9,9 @@ In some ocassions the migration tool can handle them,
 but in some situations those environment variables just produce something that the conversion tool cannot parse.
 
 In order to help in some of these scenarios the following scripts can be used.
+>> NOTE: this scripts depends on the dotenv module to read .evn files
+>> In order to run this script make sure to install it first
+>> `pip install python-dotenv`
 
 The first script is preprocess.py
 
