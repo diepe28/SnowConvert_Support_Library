@@ -19,7 +19,7 @@ A .env file or dotenv file is a simple text configuration file for controlling y
 ## What do .env files look like?
 .env files are line delimitated text files, meaning that each new line represents a single variable. By convention .env variable names are uppercase words separated by underscores. Variable names are followed directly by an '=' which, in turn is followed directly by the value.
 
-The first script is preprocess.py
+The first script is preprocess.py and it is supposed to preprocess your files before migration.
 
 ## Usage:
 
