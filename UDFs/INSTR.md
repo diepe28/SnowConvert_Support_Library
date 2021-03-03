@@ -10,8 +10,8 @@ This function performs a case-insensitive search.
 ## Parameter Values
 | Parameter	| Description |
 |-----------|-------------|
-| string1	| Required. The string that will be searched
-| string2	| Required. The string to search for in string1. If string2 is not found, this function returns 0
+| source	| Required. The string to search for in string1. If string2 is not found, this function returns 0
+| target	| Required. The string that will be searched
 | position  | Optional. The position where to start searching |
 | occur     | Optional. The occurence to replace.
 
@@ -20,18 +20,18 @@ This function performs a case-insensitive search.
 > Credit goes to Zack Howe
 
 ```sql
-create or replace function public.instr(search string, target string) returns int as
+create or replace function public.instr(target string, search string) returns int as
 $$
     POSITION(search, target)
 $$;
 
-create or replace function public.instr(search string, target string, position int) returns int as
+create or replace function public.instr(target string, search string, position int) returns int as
 $$
     CASE WHEN position >= 0 THEN POSITION(search, target, position) ELSE 1 + LENGTH(target) - POSITION(search, REVERSE(target), ABS(position)) END
 $$;
 
  
-create or replace function public.instr(search string, target string, position DOUBLE, occurence DOUBLE) returns DOUBLE language javascript as
+create or replace function public.instr(TARGET string, SEARCH string, POSITION DOUBLE, OCCURENCE DOUBLE) returns DOUBLE language javascript as
 $$
 function indexOfNth(search, target, position, n)
 {
@@ -54,16 +54,16 @@ $$;
 ```
  
 ```sql
-select instr('a', 'abcda');        -- Returns 1
-select instr('a', 'abcda', 0);     -- Returns 1
-select instr('a', 'abcda', 1);     -- Returns 1
-select instr('a', 'abcda', 2);     -- Returns 5
-select instr('a', 'abcda', -1);    -- Returns 5
-select instr('a', 'abcda', 0, 0);  -- Returns -1
-select instr('a', 'abcda', 0, 1);  -- Returns 1
-select instr('a', 'abcda', 0, 2);  -- Returns 5
-select instr('a', 'abcda', 1, 1);  -- Returns 1
-select instr('a', 'abcda', 1, 2);  -- Returns 5
-select instr('a', 'abcda', -1, 1); -- Returns 5
-select instr('a', 'abcda', -1, 2); -- Returns 1
+select instr('abcda','a');        -- Returns 1
+select instr('abcda','a',0);     -- Returns 1
+select instr('abcda','a', 1);     -- Returns 1
+select instr('abcda','a', 2);     -- Returns 5
+select instr('abcda','a',  -1);    -- Returns 5
+select instr('abcda','a',  0, 0);  -- Returns -1
+select instr('abcda','a',  0, 1);  -- Returns 1
+select instr('abcda','a',  0, 2);  -- Returns 5
+select instr('abcda','a',  1, 1);  -- Returns 1
+select instr('abcda','a',  1, 2);  -- Returns 5
+select instr('abcda','a', -1, 1); -- Returns 5
+select instr('abcda','a', -1, 2); -- Returns 1
 ```
